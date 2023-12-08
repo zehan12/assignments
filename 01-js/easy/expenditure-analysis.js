@@ -14,7 +14,19 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  return transactions.reduce((acc, cv) => {
+    // Check if there is an existing object with the same category
+    let existingCategory = acc.find((item) => item.category === cv.category);
+    console.log(existingCategory?.category);
+    if (existingCategory?.category) {
+      // If the category exists, add the price to it
+      existingCategory.totalSpent += cv.price;
+    } else {
+      // If the category doesn't exist, push a new object
+      acc.push({ category: cv.category, totalSpent: cv.price });
+    }
+    return acc;
+  }, []);
 }
 
 module.exports = calculateTotalSpentByCategory;
